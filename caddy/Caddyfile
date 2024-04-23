@@ -1,0 +1,13 @@
+wishalloy.com {
+	root * /srv/http
+	file_server
+}
+
+unifi.wishalloy.com {
+	reverse_proxy https://unifi:8443 {
+		transport http {
+			tls_insecure_skip_verify  # we don't verify the controller https cert
+		}
+		header_up - Authorization  # sets header to be passed to the controller
+	}
+}
