@@ -6,8 +6,9 @@ wishalloy.com {
 unifi.wishalloy.com {
 	reverse_proxy https://unifi:8443 {
 		transport http {
-			tls_insecure_skip_verify  # we don't verify the controller https cert
+			# Since the container is being reverse proxied, we do not need to verify
+			# the controllers default cert:
+			tls_insecure_skip_verify
 		}
-		header_up - Authorization  # sets header to be passed to the controller
 	}
 }
