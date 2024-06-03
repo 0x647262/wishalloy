@@ -3,6 +3,10 @@ wishalloy.com {
 	file_server
 }
 
+git.wishalloy.com {
+	reverse_proxy http://gitea:3000
+}
+
 unifi.wishalloy.com {
 	reverse_proxy https://unifi:8443 {
 		transport http {

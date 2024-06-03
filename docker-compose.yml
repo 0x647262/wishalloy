@@ -3,6 +3,7 @@ services:
     # https://github.com/caddyserver/caddy-docker
     image: caddy:latest
     networks:
+      gitea:
       unifi:
     ports:
       - "80:80"
@@ -13,6 +14,17 @@ services:
       - "./http:/srv/http"
       - "caddy-config:/config"
       - "caddy-data:/data"
+  # https://docs.gitea.com/next/installation/install-with-docker
+  gitea:
+    image: gitea/gitea:1.22
+    networks:
+      gitea:
+    ports:
+      - "3000:3000"
+      - "222:22"
+    restart: unless-stopped
+    volumes:
+      - "gitea-data:/data"
   unifi:
     # https://github.com/jacobalberty/unifi-docker
     image: jacobalberty/unifi
@@ -26,9 +38,11 @@ services:
     volumes:
       - "unifi-data:/unifi/data"
 networks:
+  gitea:
   unifi:
 volumes:
   caddy-config:
   caddy-data:
+  gitea-data:
   unifi-data:
 # vim: expandtab shiftwidth=2 tabstop=2
